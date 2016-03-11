@@ -1,0 +1,62 @@
+
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+
+public class CreateFileExample 
+{
+    public static void main( String[] args )
+    {	
+    	JFrame parentFrame = new JFrame();
+    	 
+    	JFileChooser fileChooser = new JFileChooser();
+    	fileChooser.setDialogTitle("Specify a file to save");   
+    	 
+    	int userSelection = fileChooser.showSaveDialog(parentFrame);
+    	 
+    	if (userSelection == JFileChooser.APPROVE_OPTION) {
+    	    File fileToSave = fileChooser.getSelectedFile();
+    	    System.out.println("Save as file: " + fileToSave.getAbsolutePath());
+    	    File file = new File(fileToSave.getAbsolutePath());
+    	    
+    	    try{
+    	    	if(file.createNewFile()){
+    	    		System.out.println("You created the file");
+    	    		
+    	    	}else{
+    	    		System.out.println("The file is already there ");
+    	    	}
+    	    	
+    	    }catch(IOException e){
+    	    	System.out.println("There r some error");
+    	    }
+    	    
+   	    String text = "Hello world";
+    	    
+			try {
+				  FileOutputStream is = new FileOutputStream(file);
+				  OutputStreamWriter osw = new OutputStreamWriter(is);    
+		            Writer w = new BufferedWriter(osw);
+		            w.write(text);
+		            w.close();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}   	    
+ 
+    	}
+    	
+    	
+    	
+    }
+}
